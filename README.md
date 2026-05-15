@@ -4,6 +4,8 @@ This is a custom firmware build for the [Beekeeb Piantor keyboard](https://beeke
 
 This is just an updated configuration based on the [original Piantor firmware by beekeeb](https://github.com/beekeeb/vial-qmk-piantor), this is not the official firmware.
 
+You can download the prebuilt firmware for the WeAct and with the mouse emulation disabled on the [releases page](https://github.com/CodeMyst/piantor-firmware/releases).
+
 It is possible to use this firmware with a Raspberry PI Pico by changing the `USB_VBUS_PIN` in `keyboards/beekeeb/piantor_weact/config.h` - just comment/uncomment the last two lines.
 
 **Additional note**: This config also disables mouse emulation since some games detected that as a game controller and I had some ghost inputs. If you need mouse emulation enabled it by setting `mousekey: true` in `keyboards/beekeeb/piantor_weact/keyboard.json`.
