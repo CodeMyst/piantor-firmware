@@ -8,7 +8,7 @@ KEYBOARD_DST="$QMK_DIR/keyboards/beekeeb/piantor_weact"
 
 echo "== Piantor firmware setup =="
 
-# 1. Ensure submodule is initialized
+# Ensure submodule is initialized
 if [ ! -d "$QMK_DIR/.git" ]; then
   echo "[1/4] Initializing QMK submodule..."
   git submodule update --init --recursive
@@ -16,14 +16,14 @@ else
   echo "[1/4] QMK submodule already initialized"
 fi
 
-# 2. Check keyboard source exists
+# Check keyboard source exists
 if [ ! -d "$KEYBOARD_SRC" ]; then
   echo "ERROR: Keyboard source not found at:"
   echo "  $KEYBOARD_SRC"
   exit 1
 fi
 
-# 3. Copy config into QMK tree
+# Copy config into QMK tree
 echo "[2/4] Copying keyboard into QMK tree..."
 
 mkdir -p "$(dirname "$KEYBOARD_DST")"
@@ -38,17 +38,7 @@ cp -r "$KEYBOARD_SRC" "$KEYBOARD_DST"
 echo "  copied:"
 echo "    $KEYBOARD_SRC -> $KEYBOARD_DST"
 
-# 4. Optional: install udev rules
-echo "[3/4] Installing QMK udev rules (optional)..."
-
-if [ -f "$QMK_DIR/util/install_udev.sh" ]; then
-  echo "  requires sudo"
-  sudo bash "$QMK_DIR/util/install_udev.sh" || true
-else
-  echo "  skipped (no installer found)"
-fi
-
-# 5. sanity check
+# Sanity check
 echo "[4/4] Sanity check..."
 
 if make -C "$QMK_DIR" list-keyboards | grep -q "beekeeb/piantor_weact"; then

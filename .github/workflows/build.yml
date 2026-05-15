@@ -1,0 +1,52 @@
+name: Build Piantor WeAct Firmware
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            git \
+            python3 \
+            python3-pip \
+            build-essential \
+            gcc \
+            unzip \
+            wget
+
+      - name: Install QMK CLI
+        run: |
+          python3 -m pip install --user qmk
+
+      - name: Setup QMK
+        run: |
+          cd qmk_firmware && qmk setup -y
+
+      - name: Run the setup script
+        run: |
+          sh setup.sh
+
+      - name: Compile firmware
+        run: |
+          make -C qmk_firmware beekeeb/piantor:vial
+
+      - name: Upload firmware artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: piantor-weact-firmware
+          path: |
+            qmk_firmware/*.uf2
+            qmk_firmware/*.bin
+            qmk_firmware/*.hex
