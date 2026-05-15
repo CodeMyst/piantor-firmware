@@ -19,8 +19,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y \
             git \
-            python3 \
-            python3-pip \
             build-essential \
             gcc \
             unzip \
@@ -28,13 +26,18 @@ jobs:
             gcc-arm-none-eabi \
             binutils-arm-none-eabi
 
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
       - name: Install QMK CLI
         run: |
           python3 -m pip install --user qmk
 
-      - name: Setup QMK
+      - name: Setup Vial QMK
         run: |
-          cd qmk_firmware && qmk setup -y
+          cd vial-qmk && qmk setup -y
 
       - name: Run the setup script
         run: |
@@ -42,13 +45,13 @@ jobs:
 
       - name: Compile firmware
         run: |
-          make -C qmk_firmware beekeeb/piantor_weact:vial
+          make -C vial-qmk beekeeb/piantor_weact:vial
 
       - name: Upload firmware artifact
         uses: actions/upload-artifact@v4
         with:
           name: piantor-weact-firmware
           path: |
-            qmk_firmware/*.uf2
-            qmk_firmware/*.bin
-            qmk_firmware/*.hex
+            vial-qmk/*.uf2
+            vial-qmk/*.bin
+            vial-qmk/*.hex

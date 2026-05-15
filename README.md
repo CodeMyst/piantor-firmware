@@ -12,7 +12,7 @@ It is possible to use this firmware with a Raspberry PI Pico by changing the `US
 
 ## Cloning
 
-This repo contains a the `qmk_firmware` as a submodule. So when cloning the repo make sure to clone submodules with:
+This repo contains a the `vial-qmk` as a submodule. So when cloning the repo make sure to clone submodules with:
 
 ```
 git clone --recurse-submodules https://github.com/CodeMyst/piantor-firmware
@@ -22,19 +22,20 @@ git clone --recurse-submodules https://github.com/CodeMyst/piantor-firmware
 
 To setup the project before building you have to do a few steps first:
 
-1. Install the QMK CLI: `curl -fsSL https://install.qmk.fm | sh`
-2. Setup the QMK CLI: `cd qmk_firmware && qmk setup` (just press enter for defaults)
-3. Run the setup script to copy the config to the QMK submodule: `./setup.sh`
+1. Install Python 3.10 (needed until [vial-qmk#1011](https://github.com/vial-kb/vial-qmk/issues/1011) is fixed)
+2. Install the QMK CLI: `curl -fsSL https://install.qmk.fm | sh`
+3. Setup the QMK CLI: `cd vial-qmk && qmk setup` (just press enter for defaults)
+4. Run the setup script to copy the config to the Vial QMK submodule: `./setup.sh`
 
 ## Building
 
 To build the firmware just run `make` (from the root of the repo):
 
 ```sh
-make -C qmk_firmware beekeeb:piantor_weact:vial
+make -C vial-qmk beekeeb:piantor_weact:vial
 ```
 
-If everything passed properly the firmware should end up in `qmk_firmware/.build/beekeeb_piantor_weact_vial.uf2`.
+If everything passed properly the firmware should end up in `vial-qmk/.build/beekeeb_piantor_weact_vial.uf2`.
 
 ## Flashing
 
@@ -47,11 +48,6 @@ Now the keyboard should properly work and you can use Vial to configure it.
 ## Licensing & Attribution
 
 This project is based on multiple open-source components:
-
-### QMK Firmware
-
-- https://github.com/qmk/qmk_firmware
-- Licensed under GNU General Public License v2.0 (GPL-2.0)
 
 ### Vial
 
