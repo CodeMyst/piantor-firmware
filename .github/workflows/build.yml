@@ -36,7 +36,7 @@ jobs:
 
       - name: Run the setup script
         run: |
-          sh setup.sh
+          bash setup.sh
 
       - name: Compile firmware
         run: |
