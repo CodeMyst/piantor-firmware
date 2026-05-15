@@ -24,7 +24,9 @@ jobs:
             build-essential \
             gcc \
             unzip \
-            wget
+            wget \
+            gcc-arm-none-eabi \
+            binutils-arm-none-eabi
 
       - name: Install QMK CLI
         run: |
@@ -40,7 +42,7 @@ jobs:
 
       - name: Compile firmware
         run: |
-          make -C qmk_firmware beekeeb/piantor:vial
+          make -C qmk_firmware beekeeb/piantor_weact:vial
 
       - name: Upload firmware artifact
         uses: actions/upload-artifact@v4
